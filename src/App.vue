@@ -1,18 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <div>123   </div>
+    <v-header></v-header>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import VHeader from './components/v-header/v-header'
+import { ERR_OK } from './api/config'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    VHeader
+  },
+  created () {
+    this._getSeller()
+  },
+  methods: {
+    _getSeller () {
+      this.$http.get('/api/seller').then((response) => {
+        response = response.body
+        if (response.code === ERR_OK) {
+          console.log(response)
+          this.seller = response
+        }
+      })
+    }
   }
 }
 </script>
