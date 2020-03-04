@@ -18,9 +18,9 @@
         <div class="description">
           {{ seller.description }}/{{ seller.deliveryTime }} 分钟送达
         </div>
-        <div v-if="seller.supports" class="support">
+        <div v-if="seller.supports" class="supports">
           <support-ico :size="1" :type="seller.supports[0].type"></support-ico>
-          <span class="text">{{ seller.supports[0].description }} </span>
+          <span class="text">{{ seller.supports[0].description }}111 </span>
         </div>
         <div v-if="seller.supports" class="support-count">
           <span class="count">{{ seller.supports.length }}个</span>
@@ -93,10 +93,11 @@ export default {
         .description
           margin-bottom: 10px
           line-height: 12px;
-          font-size: 12px
+          font-size: $font-size-small
         .supports
           .text
             vertical-align: top
+            margin-left: 10px
             line-height: 12px
             font-size: 12px
         .support-count
@@ -123,7 +124,7 @@ export default {
       white-space: nowrap
       overflow: hidden
       text-overflow: ellipsis
-      background: rgba(7, 17, 27, 0.2)
+      background: $color-background-sss
       .bulletin-title
         display : inline-block
         vertical-align: top

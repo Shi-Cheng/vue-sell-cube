@@ -1,29 +1,42 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
+    <div class="tab-wrapper">
+      <tab :tabs="tabs"></tab>
+    </div>
   </div>
 </template>
 
 <script>
 import VHeader from './components/v-header/v-header'
-import { ERR_OK } from './api/config'
+import { _getSeller } from './api/index'
+import Tab from './components/tab/tab'
 
 export default {
   name: 'App',
   components: {
+    Tab,
     VHeader
+  },
+  data () {
+    return {
+      seller: {},
+      tabs: [{
+        label: '商品'
+      }, {
+        label: '评价'
+      }, {
+        label: '商家'
+      }]
+    }
   },
   created () {
     this._getSeller()
   },
   methods: {
     _getSeller () {
-      this.$http.get('/api/seller').then((response) => {
-        response = response.body
-        if (response.code === ERR_OK) {
-          console.log(response)
-          this.seller = response
-        }
+      _getSeller().then((res) => {
+        this.seller = res.data
       })
     }
   }
@@ -32,10 +45,10 @@ export default {
 
 <style lang="stylus">
 #app
-  font-family Avenir, Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
-  margin-top 60px
+  .tab-wrapper
+    position: fixed
+    top: 136px
+    left: 0
+    right: 0
+    bottom: 0
 </style>
