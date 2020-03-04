@@ -6,9 +6,9 @@
 */
 
 <template>
-    <div>
-      seller
-    </div>
+  <div>
+    seller
+  </div>
 </template>
 
 <script>

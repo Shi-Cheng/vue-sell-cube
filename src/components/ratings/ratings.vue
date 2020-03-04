@@ -6,9 +6,9 @@
 */
 
 <template>
-    <div>
-      ratings
-    </div>
+  <div>
+    ratings
+  </div>
 </template>
 
 <script>

@@ -4,8 +4,12 @@
  * @date ${DATE}
  * description:
  */
-import { getSeller } from './helper'
+import { get } from './helper'
 
-export function _getSeller () {
-  return getSeller()
+const getSeller = get('/api/seller')
+const getGoods = get('/api/goods')
+
+export {
+  getSeller,
+  getGoods
 }

@@ -20,7 +20,7 @@
         </div>
         <div v-if="seller.supports" class="supports">
           <support-ico :size="1" :type="seller.supports[0].type"></support-ico>
-          <span class="text">{{ seller.supports[0].description }}111 </span>
+          <span class="text">{{ seller.supports[0].description }} </span>
         </div>
         <div v-if="seller.supports" class="support-count">
           <span class="count">{{ seller.supports.length }}个</span>
