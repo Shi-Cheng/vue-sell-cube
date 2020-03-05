@@ -1,0 +1,30 @@
+/**
+ * project: vue-sell-cube
+ * @author panshicheng
+ * @date 3/4/20
+ * description:
+ */
+// 元素下划线
+border-1px($color)
+  position: relative
+  &:after
+    display: block
+    position: absolute
+    width: 100%
+    left: 0
+    bottom: 0
+    border-top: 1px solid $color
+    content: ' '
+// 去除最后一个元素下划线
+border-none()
+  &::before
+    display: none
+  &::after
+    display: none
+
+// 设置全局背景图
+bg-image($url)
+  background-image: url($url+"@2x.png")
+  @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3)
+    background-image: url($url+"@3x.png")
+ 

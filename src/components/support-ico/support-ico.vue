@@ -56,10 +56,9 @@ export default {
     }
   }
   .icon-2{
-    width: 12px
-    height: 12px
-    -webkit-background-size: 12px 12px
-    background-size: 12px 12px
+    width: 14px
+    height: 14px
+    background-size: 14px 14px
     &.decrease{
       bg-image('decrease_2')
     }

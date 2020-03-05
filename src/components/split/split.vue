@@ -1,0 +1,27 @@
+/**
+* project: vue-sell-cube
+* @author panshicheng
+* @date 3/4/20
+* description:
+*/
+
+<template>
+    <div class="split"></div>
+</template>
+
+<script>
+export default {
+  name: 'split'
+}
+</script>
+
+<style scoped lang="stylus">
+  @import "~common/stylus/variable"
+  .split{
+    width: 100%
+    height: 16px
+    border-top: 1px solid $color-row-line
+    border-bottom: 1px solid $color-row-line
+    background: $color-background-sssss
+  }
+</style>

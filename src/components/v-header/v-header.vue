@@ -22,33 +22,49 @@
           <support-ico :size="1" :type="seller.supports[0].type"></support-ico>
           <span class="text">{{ seller.supports[0].description }} </span>
         </div>
-        <div v-if="seller.supports" class="support-count">
+        <div v-if="seller.supports" class="support-count"  @click="showDetail">
           <span class="count">{{ seller.supports.length }}个</span>
           <i class="icon-keyboard_arrow_right"/>
         </div>
       </div>
     </div>
-    <div class="bulletin-wrapper">
+    <div class="bulletin-wrapper"  @click="showDetail">
       <span class="bulletin-title"/><span class="bulletin-text">{{ seller.bulletin }}</span>
       <i class="icon-keyboard_arrow_right"/>
     </div>
     <div class="background">
       <img :src="seller.avatar" width="100%" height="100%">
     </div>
+    <header-detail ref="headdetail" v-show="showHeader" :seller="seller" @headerChange="headerChange"></header-detail>
   </div>
 </template>
 
 <script>
 import SupportIco from '../support-ico/support-ico'
+import HeaderDetail from '../header-detail/header-detail'
 export default {
   name: 'v-header',
   components: {
+    HeaderDetail,
     SupportIco
   },
   props: {
     seller: {
       type: Object,
       default: () => {}
+    }
+  },
+  data () {
+    return {
+      showHeader: false
+    }
+  },
+  methods: {
+    showDetail () {
+      this.showHeader = true
+    },
+    headerChange (state) {
+      this.showHeader = state
     }
   }
 }
