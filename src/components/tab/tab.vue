@@ -28,7 +28,7 @@
           :options="slideOptions"
         >
           <cube-slide-item v-for="(item, index) in tabs" :key="index">
-            <component :is="item.component" :data="item.data"></component>
+            <component ref="component" :is="item.component" :data="item.data"></component>
           </cube-slide-item>
         </cube-slide>
       </div>
@@ -81,6 +81,10 @@ export default {
     },
     onChange (current) {
       this.index = current
+      const component = this.$refs.component[current]
+      if (component.fetch()) {
+        component.fetch()
+      }
     },
     onScroll (pos) {
       const tabBarWidth = this.$refs.tabBar.$el.clientWidth

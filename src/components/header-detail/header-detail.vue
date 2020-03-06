@@ -94,11 +94,12 @@ export default {
     background: $color-background-s
     backdrop-filter: blur(10px)
     transition: all 0.5s
-    &.fade-transition{
+    &.fade-leave-active{
       opacity: 1;
       background: $color-background-ss
+      transition: all 0.3s
     }
-    &.fade-enter, &.fade-leave{
+    &.fade-enter, &.fade-leave-active{
       opacity: 0;
       background: rgba(7, 17, 27, 0)
     }
