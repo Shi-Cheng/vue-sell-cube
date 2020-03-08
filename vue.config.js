@@ -28,8 +28,9 @@ module.exports = {
   devServer: {
     before (app) {
       app.get('/api/seller', function (req, res) {
+        const id = req.query.id
         res.json({
-          data: seller,
+          data: Object.assign({}, seller, { id }),
           errno: 0
         })
       })

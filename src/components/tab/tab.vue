@@ -82,7 +82,7 @@ export default {
     onChange (current) {
       this.index = current
       const component = this.$refs.component[current]
-      if (component.fetch()) {
+      if (component && component.fetch) {
         component.fetch()
       }
     },

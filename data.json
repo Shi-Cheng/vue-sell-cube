@@ -82,6 +82,20 @@
               "rateType": 1,
               "text": "",
               "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "3******b",
+              "rateTime": 1469261964000,
+              "rateType": 2,
+              "text": "",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "3******b",
+              "rateTime": 1469261964000,
+              "rateType": 2,
+              "text": "",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
             }
           ],
           "icon": "http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/114/h/114",
@@ -92,6 +106,7 @@
           "price": 14,
           "oldPrice": "",
           "description": "",
+          "info": "扁豆焖面info",
           "sellCount": 188,
           "rating": 96,
           "ratings": [
@@ -117,7 +132,6 @@
               "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
             }
           ],
-          "info": "",
           "icon": "http://fuss10.elemecdn.com/c/6b/29e3d29b0db63d36f7c500bca31d8jpeg.jpeg?imageView2/1/w/114/h/114",
           "image": "http://fuss10.elemecdn.com/c/6b/29e3d29b0db63d36f7c500bca31d8jpeg.jpeg?imageView2/1/w/750/h/750"
         },
@@ -128,7 +142,7 @@
           "description": "",
           "sellCount": 124,
           "rating": 85,
-          "info": "",
+          "info": "葱花饼info",
           "ratings": [
             {
               "username": "3******c",
@@ -162,7 +176,7 @@
           "description": "",
           "sellCount": 114,
           "rating": 91,
-          "info": "",
+          "info": "牛肉馅",
           "ratings": [
             {
               "username": "3******c",
@@ -1147,7 +1161,6 @@
       "deliveryTime": "",
       "score": 4,
       "rateType": 0,
-      "deliveryTime": "",
       "text": "服务态度不错",
       "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
       "recommend": [

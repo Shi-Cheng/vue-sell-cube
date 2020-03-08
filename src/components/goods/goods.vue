@@ -17,7 +17,7 @@
         <template slot="bar" slot-scope="props">
           <cube-scroll-nav-bar
             direction="vertical"
-            :label="props.labels"
+            :labels="props.labels"
             :current="props.current"
             :txts="barTxts"
           >
@@ -43,7 +43,7 @@
           :title="good.name"
         >
           <ul>
-            <li v-for="(food, foodIndex) in good.foods" :key="foodIndex" class="food-item">
+            <li v-for="(food, foodIndex) in good.foods" :key="foodIndex" class="food-item" @click="selectFood(food)">
               <div class="icon">
                 <img :src="food.icon" width="57" height="57">
               </div>
@@ -72,7 +72,6 @@
                  :select-foods="selectFoods"
                  :min-price="minPrice"
                  :delivery-price="deliveryPrice">
-
       </shop-cart>
     </div>
   </div>
@@ -111,12 +110,15 @@ export default {
       deliveryPrice: deliveryPrice,
       selectedFood: {},
       scrollOptions: {
-        listenScroll: true,
+        click: false,
         directionLockThreshold: 0
       }
     }
   },
   computed: {
+    seller () {
+      return this.data
+    },
     selectFoods () {
       const foods = []
       this.goods.forEach((good) => {
@@ -154,14 +156,54 @@ export default {
     this.fetch()
   },
   methods: {
+    selectFood (food) {
+      this.selectedFood = food
+      this._showFood()
+      this._showShopCartSticky()
+    },
     fetch () {
-      this._getGoods()
+      if (!this.fetched) {
+        this.fetched = true
+        this._getGoods()
+      }
     },
     addFood (el) {
       this._drop(el)
     },
+    _showFood () {
+      this.foodCom = this.foodCom || this.$createFood({
+        $props: {
+          food: 'selectedFood'
+        },
+        $events: {
+          leave: () => {
+            this._hideShopCartSticky()
+          },
+          add: (el) => {
+            this.shopCartStickyComp.drop(el)
+          }
+        }
+      })
+      this.foodCom.show()
+    },
+    _showShopCartSticky () {
+      this.shopCartStickyComp = this.shopCartStickyComp || this.$createShopCartSticky({
+        $props: {
+          selectFoods: 'selectFoods',
+          deliveryPrice: this.seller.deliveryPrice,
+          minPrice: this.seller.minPrice,
+          fold: true
+        }
+      })
+      this.shopCartStickyComp.show()
+    },
+    _hideShopCartSticky () {
+      this.shopCartStickyComp.hide()
+    },
     _getGoods () {
-      getGoods().then((res) => {
+      getGoods({
+        id: this.seller.id
+      }).then((res) => {
         this.goods = res
       })
     },

@@ -14,6 +14,7 @@ import Ratings from 'components/ratings/ratings'
 import Seller from 'components/seller/seller'
 import { getSeller } from './api/index'
 import Tab from './components/tab/tab'
+import qs from 'query-string'
 
 export default {
   name: 'App',
@@ -23,7 +24,9 @@ export default {
   },
   data () {
     return {
-      seller: {},
+      seller: {
+        id: qs.parse(location.search).id
+      },
       initialIndex: 0
     }
   },
@@ -49,7 +52,9 @@ export default {
   },
   methods: {
     _getSeller () {
-      getSeller().then((res) => {
+      getSeller({
+        id: this.seller.id
+      }).then((res) => {
         this.seller = res
       })
     }

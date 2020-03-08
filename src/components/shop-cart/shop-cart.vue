@@ -22,7 +22,7 @@
           <div class="desc" >另需配送费￥{{ deliveryPrice }}元</div>
         </div>
         <div class="content-right">
-          <div :class="payClass" class="pay">
+          <div :class="payClass" class="pay" @click="pay">
             {{ payDesc }}
           </div>
         </div>
@@ -124,6 +124,16 @@ export default {
     }
   },
   methods: {
+    pay (e) {
+      if (this.totalPrice < this.minPrice) {
+        return
+      }
+      this.$createDialog({
+        title: '支付',
+        content: `您需要支付${this.totalPrice}元`
+      }).show()
+      e.stopPropagation()
+    },
     drop (target) {
       for (let i = 0; i < this.balls.length; i++) {
         const ball = this.balls[i]

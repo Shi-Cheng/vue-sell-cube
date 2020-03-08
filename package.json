@@ -9,8 +9,11 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "better-storage": "^0.0.1",
     "core-js": "^3.6.4",
     "cube-ui": "~1.12.15",
+    "moment": "^2.24.0",
+    "query-string": "^6.11.1",
     "vue": "^2.6.11"
   },
   "devDependencies": {

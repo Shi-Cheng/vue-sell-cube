@@ -33,7 +33,7 @@ export default {
     border-radius: 16px
     font-weight: 700
     font-size: $font-size-small
-    /*color: $color-white*/
-    /*background: linear-gradient(to right, $color-orange, $color-red)*/
+    color: $color-white
+    background: linear-gradient(to right, $color-orange, $color-red)
   }
 </style>
