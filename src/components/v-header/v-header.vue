@@ -61,7 +61,12 @@ export default {
   },
   methods: {
     showDetail () {
-      this.showHeader = true
+      this.headerDetailComp = this.headerDetailComp || this.$createHeaderDetail({
+        $props: {
+          seller: 'seller'
+        }
+      })
+      this.headerDetailComp.show()
     },
     headerChange (state) {
       this.showHeader = state

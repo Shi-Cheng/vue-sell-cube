@@ -73,6 +73,9 @@ export default {
     }
   },
   methods: {
+    show () {
+      this.detail = true
+    },
     hideClose () {
       this.detail = false
       this.$emit('headerChange', this.detail)
@@ -91,12 +94,13 @@ export default {
     width: 100%
     height: 100%
     overflow: hidden
+    color: $color-white
     background: $color-background-s
     backdrop-filter: blur(10px)
     transition: all 0.5s
     &.fade-leave-active{
       opacity: 1;
-      background: $color-background-ss
+      background: rgba(7, 17, 27, 0.8)
       transition: all 0.3s
     }
     &.fade-enter, &.fade-leave-active{
@@ -110,8 +114,8 @@ export default {
         margin-top: 64px
         padding-bottom: 64px
         .name {
-          font-weight: 700px;
-          line-height: 16px;
+          font-weight: 700px
+          line-height: 16px
           text-align: center
           font-size: 16px
         }
@@ -127,7 +131,7 @@ export default {
           .line{
             flex: 1
             position: relative
-            top: -6px;
+            top: -6px
             border-bottom: 1px solid rgba(255, 255, 255, 0.2)
           }
           .text{

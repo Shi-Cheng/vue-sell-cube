@@ -6,25 +6,32 @@
 */
 
 <template>
+  <!--<div class="cartcontrol" @click.stop>-->
+    <!--<transition name="move">-->
+      <!--<div v-show="food.count>0" class="cart-decrease" @click.stop="decreaseCart">-->
+        <!--<span class="inner icon-remove_circle_outline"></span>-->
+      <!--</div>-->
+    <!--</transition>-->
+    <!--<div  v-show="food.count>0" class="cart-count">-->
+      <!--<bubble :num="food.count"></bubble>-->
+    <!--</div>-->
+    <!--<div class="cart-add icon-add_circle" @click.stop="addCart"/>-->
+  <!--</div>-->
   <div class="cartcontrol">
     <transition name="move">
-      <div v-show="food.count>0" class="cart-decrease" @click.stop.prevent="decreaseCart">
+      <div class="cart-decrease" v-show="food.count>0" @click.stop="decrease">
         <span class="inner icon-remove_circle_outline"></span>
       </div>
     </transition>
-    <div  v-show="food.count>0" class="cart-count">
-      <bubble :num="food.count"></bubble>
-    </div>
-    <div class="cart-add icon-add_circle" @click.stop.prevent="addCart"/>
+    <div class="cart-count" v-show="food.count>0">{{food.count}}</div>
+    <div class="cart-add icon-add_circle" @click.stop="add"></div>
   </div>
 </template>
 
 <script>
-import Bubble from '../bubble/bubble'
 const EVENT_ADD = 'add'
 export default {
   name: 'cart-control',
-  components: { Bubble },
   props: {
     food: {
       type: Object,
@@ -34,29 +41,44 @@ export default {
     }
   },
   methods: {
-    addCart (event) {
-      if (!event._constructed) {
-        return
-      }
+    add (event) {
       if (!this.food.count) {
-        // 如果没有这个属性，通过set进行添加
         this.$set(this.food, 'count', 1)
       } else {
-        this.$nextTick(() => {
-          this.food.count++
-        })
+        this.food.count++
       }
       this.$emit(EVENT_ADD, event.target)
     },
-    decreaseCart (event) {
-      if (!event._constructed) {
-        return
-      }
+    decrease () {
       if (this.food.count) {
         this.food.count--
       }
     }
   }
+  // methods: {
+  //   addCart (event) {
+  //     if (!event._constructed) {
+  //       return
+  //     }
+  //     if (!this.food.count) {
+  //       // 如果没有这个属性，通过set进行添加
+  //       this.$set(this.food, 'count', 1)
+  //     } else {
+  //       this.$nextTick(() => {
+  //         this.food.count++
+  //       })
+  //     }
+  //     this.$emit(EVENT_ADD, event.target)
+  //   },
+  //   decreaseCart (event) {
+  //     if (!event._constructed) {
+  //       return
+  //     }
+  //     if (this.food.count) {
+  //       this.food.count--
+  //     }
+  //   }
+  // }
 }
 </script>
 

@@ -8,13 +8,15 @@
 <template>
   <div>
     <div class="shopcart">
-      <div class="content">
+      <div class="content" @click="toggleList">
         <div class="content-left">
           <div class="logo-wrapper">
             <div class="logo">
               <i :class="{'highlight': totalCount > 0}" class="icon-shopping_cart"></i>
             </div>
-            <div v-show="totalCount > 0" class="num">{{ totalCount }}</div>
+            <div v-show="totalCount > 0" class="num">
+              <bubble :num="totalCount"></bubble>
+            </div>
           </div>
           <div v-show="totalPrice > 0" :class="{'highlight':totalPrice > 0}" class="price">￥{{ totalPrice }}</div>
           <div class="desc" >另需配送费￥{{ deliveryPrice }}元</div>
@@ -39,8 +41,21 @@
 </template>
 
 <script>
+import Bubble from '../bubble/bubble'
+const BALL_LEN = 10
+
+function createBalls () {
+  const ret = []
+  for (let i = 0; i < BALL_LEN; i++) {
+    ret.push({
+      show: false
+    })
+  }
+  return ret
+}
 export default {
   name: 'shop-cart',
+  components: { Bubble },
   props: {
     selectFoods: {
       type: Array,
@@ -58,22 +73,21 @@ export default {
     minPrice: {
       type: Number,
       default: 0
+    },
+    fold: {
+      type: Boolean,
+      default: true
+    },
+    sticky: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
-      balls: [{
-        show: false
-      }, {
-        show: false
-      }, {
-        show: false
-      }, {
-        show: false
-      }, {
-        show: false
-      }],
-      dropBalls: [] // 记录点击的商品el
+      balls: createBalls(),
+      dropBalls: [],
+      listFold: this.fold
     }
   },
   computed: {
@@ -156,6 +170,67 @@ export default {
         ball.show = false
         el.style.display = 'none'
       }
+    },
+    toggleList () {
+      if (this.listFold) {
+        if (!this.totalCount) {
+          return
+        }
+        this.listFold = false
+        this._showShopCartList()
+        this._showShopCartSticky()
+      } else {
+        this.listFold = true
+        this._hideShopCartList()
+      }
+    },
+    _showShopCartList () {
+      this.shopCartListComp = this.shopCartListComp || this.$createShopCartList({
+        $props: {
+          selectFoods: 'selectFoods'
+        },
+        $events: {
+          hide: () => {
+            this.listFold = true
+          },
+          add: (el) => {
+            this.shopCartStickyComp.drop(el)
+          },
+          leave: () => {
+            this._hideShopCartSticky()
+          }
+        }
+      })
+      this.shopCartListComp.show()
+    },
+    _hideShopCartList () {
+      const list = this.sticky ? this.$parent.list : this.shopCartListComp
+      list.hide && list.hide()
+    },
+    _showShopCartSticky () {
+      this.shopCartStickyComp = this.shopCartStickyComp || this.$createShopCartSticky({
+        $props: {
+          selectFoods: 'selectFoods',
+          deliveryPrice: 'deliveryPrice',
+          minPrice: 'minPrice',
+          fold: 'listFold',
+          list: this.shopCartListComp // 将shop-cart-list 作为父组件
+        }
+      })
+      this.shopCartStickyComp.show()
+    },
+    _hideShopCartSticky () {
+      this.shopCartStickyComp.hide()
+    }
+  },
+  watch: {
+    fold (newVal) {
+      this.listFold = newVal
+    },
+    totalCount (count) {
+      if (!this.fold && count === 0) {
+        this._hideShopCartList()
+      }
     }
   }
 }
@@ -164,7 +239,6 @@ export default {
 <style lang="stylus" scoped>
   @import "~common/stylus/variable.styl"
   .shopcart
-    position: fixed
     left: 0
     bottom: 0
     z-index: 50
@@ -176,7 +250,7 @@ export default {
       color: rgba(255, 255, 255, 0.4)
       background: $color-shop-card
       .content-left
-        width: 300px
+        width: 250px
         .logo-wrapper
           display: inline-block
           vertical-align: top
@@ -225,10 +299,8 @@ export default {
           border-right: 1px solid rgba(255, 255, 255, 0.1)
           font-size: $font-size-large-a
           font-weight: 700
-          &.highlight{
+          &.highlight
             color: #fff
-          }
-
         .desc
           display: inline-block
           vertical-align: top
@@ -238,34 +310,28 @@ export default {
       .content-right
         flex: 0 0 135px
         width: 135px
-        height: 48px
         .pay
           height: 48px
           line-height: 48px
           font-size: 12px
           text-align: center
           font-weight: 700
-          &.not-enough{
+          &.not-enough
             background: #2b333b
-          }
-          &.enough{
+          &.enough
             background: #00b43c
             color: #fff
-          }
-  .ball-container{
-    .ball{
+  .ball-container
+    .ball
       position: fixed
       left: 32px
       bottom: 22px
       z-index: 200
       transition:all 0.4s cubic-bezier(0.49,-0.29,0.75,0.41);
-      .inner{
+      .inner
         width: 16px
         height: 16px
         border-radius: 50%
         background: rgb(0, 160, 220)
         transition: all 0.4s linear
-      }
-    }
-  }
 </style>

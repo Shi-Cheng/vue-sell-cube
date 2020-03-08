@@ -62,7 +62,7 @@ export default {
   },
   data () {
     return {
-      index: 0,
+      index: this.initialIndex,
       slideOptions: {
         listenScroll: true,
         probeType: 3,

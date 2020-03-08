@@ -2,7 +2,7 @@
   <div id="app">
     <v-header :seller="seller"></v-header>
     <div class="tab-wrapper">
-      <tab :tabs="tabs"></tab>
+      <tab :tabs="tabs" :initial-index="initialIndex"></tab>
     </div>
   </div>
 </template>
@@ -23,7 +23,8 @@ export default {
   },
   data () {
     return {
-      seller: {}
+      seller: {},
+      initialIndex: 0
     }
   },
   created () {
